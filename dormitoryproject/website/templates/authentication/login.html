@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block link_style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/titillium.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/css-spid/spid-sp-access-button.css') }}">
+{% endblock %}
+
+{% block body %}
+
+<section class="h-100 mb-5">
+    <div class="container h-100">
+        <div class="row justify-content-sm-center h-100">
+            <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
+                <div class="text-center my-5">
+                    <img src="{{ url_for('static', filename='img/img-index/logo-parthenope.png') }}" alt="logo" width="100">
+                </div>
+                <div class="card shadow-lg">
+                    <div class="card-body p-5">
+                        <h1 class="fs-4 card-title fw-bold mb-4">Login</h1>
+                        <form method="POST" class="needs-validation" novalidate="" autocomplete="off">
+                            <div class="mb-3">
+                                <label class="mb-2 text-muted" for="cod_fisc">Username</label>
+                                <input id="cod_fisc" type="email" class="form-control" name="cod_fisc" value="" required autofocus>
+                                <div class="invalid-feedback">
+                                    Email is invalid
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="mb-2 w-100">
+                                    <label class="text-muted" for="password">Password</label>
+                                    <a href="https://passwordreset.microsoftonline.com/" class="float-end">
+                                        Password dimenticata?
+                                    </a>
+                                </div>
+                                <input id="password" type="password" class="form-control" name="password" required>
+                                <div class="invalid-feedback">
+                                    Password è richiesta
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center">
+                                <div class="form-check">
+                                    <input type="checkbox" name="remember" id="remember" class="form-check-input">
+                                    <label for="remember" class="form-check-label">Ricordati</label>
+                                </div>
+                                <button id="submit_button" value="submit" type="submit" class="btn btn-primary ms-auto" name="submit_button" formmethod="post" formaction="{{ url_for('auth.login') }}">
+                                    Login
+                                </button>
+                            </div>
+
+                            {% if msg %}
+                            <svg class="svg-class" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                              <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                              </symbol>
+                            </svg>
+                            <div class="alert alert-danger d-flex align-items-center mt-2" role="alert">
+                              <svg class="bi flex-shrink-0 me-2 svg-class" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                  {{ msg }}
+                            </div>
+                            {% endif %}
+                        </form>
+                    </div>
+
+                    <div class="mx-auto mb-5">
+                        <!-- AGID - SPID IDP BUTTON MEDIUM "ENTRA CON SPID" * begin * -->
+                        <form name="spid_idp_access" action="#" method="post">
+                            <input type="hidden" name="param_001" value="" />
+                            <input type="hidden" name="param_002" value="" />
+                            <input type="hidden" name="param_003" value="" />
+                            <a href="#" class="italia-it-button italia-it-button-size-m button-spid" spid-idp-button="#spid-idp-button-medium-post" aria-haspopup="true" aria-expanded="false">
+                                <span class="italia-it-button-icon"><img src="{{ url_for('static', filename='img/img-spid/spid-ico-circle-bb.svg') }}" alt="" /></span>
+                                <span class="italia-it-button-text">Entra con SPID</span>
+                            </a>
+                            <div id="spid-idp-button-medium-post" class="spid-idp-button spid-idp-button-tip spid-idp-button-relative">
+                                <ul id="spid-idp-list-medium-root-post" class="spid-idp-button-menu"  data-spid-remote aria-labelledby="spid-idp">
+                                    <li><a class="dropdown-item" href="https://www.spid.gov.it">Maggiori informazioni</a></li>
+                                    <li><a class="dropdown-item" href="https://www.spid.gov.it/richiedi-spid">Non hai SPID?</a></li>
+                                    <li><a class="dropdown-item" href="https://www.spid.gov.it/serve-aiuto">Serve aiuto?</a></li>
+                                </ul>
+                            </div>
+                        </form>
+                        <!-- AGID - SPID IDP BUTTON MEDIUM "ENTRA CON SPID" * end * -->
+                    </div>
+
+
+
+                </div>
+                <div class="text-center mt-5 text-muted">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
+
+
+{% block script_body %}
+
+<script src="{{ url_for('static', filename='js/js-login/login.js') }}"></script>
+<script src="{{ url_for('static', filename='js/js-spid/spid-idps.js') }}"></script>
+<script src="{{ url_for('static', filename='js/js-spid/spid-sp-access-button.js') }}"></script>
+
+{% endblock %}

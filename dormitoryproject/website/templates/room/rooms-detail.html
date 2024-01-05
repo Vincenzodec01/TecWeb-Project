@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Camere UniParthenope
+{% endblock %}
+
+
+{% block link_style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css-rooms/style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css-bootstrap/bootstrap.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,600,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css-rooms/open-iconic-bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css-rooms/animate.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css-rooms/owl.carousel.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css-rooms/owl.theme.default.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css-rooms/magnific-popup.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css-rooms/aos.css') }}">
+<link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css-rooms/bootstrap-datepicker.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css-rooms/jquery.timepicker.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css-rooms/flaticon.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css-rooms/icomoon.css') }}">
+
+
+{% endblock %}
+
+
+{% block body %}
+
+<section class="ftco-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="row">
+            <div class="col-md-12 ftco-animate">
+                <div class="single-slider owl-carousel">
+                    <div class="item">
+                        <div class="room-img" style="background-image: url({{ url_for('static', filename='img/img-room/id-' + _room_[0] + '/1.jpg')}});"></div>
+                    </div>
+                    <div class="item">
+                        <div class="room-img" style="background-image: url({{ url_for('static', filename='img/img-room/id-' + _room_[0] + '/2.jpg')}});"></div>
+                    </div>
+                    <div class="item">
+                        <div class="room-img" style="background-image: url({{ url_for('static', filename='img/img-room/id-' + _room_[0] + '/3.jpg')}});"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div> <!-- .col-md-8 -->
+        <div class="col-lg-4">
+            <div class="col-md-12 mt-4 mb-5 ftco-animate">
+                <h2 href="#" class="mb-4" style="color: #0a13be">{{_room_[1]}}</h2>
+                <h6>Prezzo: {{_room_[2]}}€</h6>
+                <p>
+                    {{_room_[3]}}
+                </p>
+            </div>
+        </div>
+    </div>
+  </div>
+</section> <!-- .section -->
+
+
+{% endblock %}
+
+
+{% block script_body %}
+
+	<script src="{{ url_for('static', filename='js/js-rooms/jquery-migrate-3.0.1.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/js-rooms/jquery.easing.1.3.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/js-rooms/jquery.waypoints.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/js-rooms/jquery.stellar.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/js-rooms/owl.carousel.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/js-rooms/jquery.magnific-popup.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/js-rooms/aos.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/js-rooms/jquery.animateNumber.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/js-rooms/bootstrap-datepicker.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/js-rooms/scrollax.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/js-rooms/google-map.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+{% endblock %}
+

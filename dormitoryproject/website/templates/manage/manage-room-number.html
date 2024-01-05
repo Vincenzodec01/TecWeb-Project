@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container mt-4 table-responsive">
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Numero</th>
+        <th scope="col">Camera associata</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+    {% for rooms in room%}
+      <tr>
+        <th scope="row">{{rooms[0]}}</th>
+        <td>{{rooms[1]}}</td>
+        <td class="d-flex justify-content-center">
+          <a class="me-2 text-black" id="modRoomNumber" data-id="{{rooms[0]}}" type="button" data-bs-toggle="modal" data-bs-target="#modalRoomNumber">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+              <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+              <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+            </svg>
+          </a>
+          <form id="deleteRoomForm" action="{{ url_for('management.manage_room_number')}}" method="post">
+            <a id="deleteRoom" href="{{url_for('management.delete_room_number', id_room=rooms[0])}}">
+              <input hidden name="deleteRoom" value="{{rooms[0]}}">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+              </svg>
+            </a>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+    <div class="d-flex justify-content-end">
+      <a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Aggiungi</a>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+
+    <form method="post" action="{{ url_for('management.manage_room_number')}}" class="needs-validation" novalidate="" autocomplete="off" enctype="multipart/form-data">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Inserimento numero camera</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="mb-3" id="room-number-container">
+              <label for="room-number-input" class="col-form-label">Numero Camera:</label>
+              <input name="room-number-input" type="text" class="form-control" id="room-number-input" required>
+            </div>
+            <a href="#" onclick="add_name()" class="d-fle mt-1 ms-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
+              </svg>
+            </a>
+            <div class="mb-3">
+              <label for="room-name" class="col-form-label">Nome camera:</label>
+              <input name="room-name" class="form-control" id="room-name" required>
+            </div>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+          <button value="insert" name="save-room" type="submit" class="btn btn-primary">Salva</button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+
+<div class="modal fade" id="modalRoomNumber" tabindex="-1" aria-labelledby="divmodalRoomNumber" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+
+    <form method="post" action="{{ url_for('management.manage_room_number')}}" class="needs-validation" novalidate="" autocomplete="off" enctype="multipart/form-data">
+      <div class="modal-content">
+        <div class="modal-header">
+          <input id="mod-room-number" hidden name="mod-room-number" required>
+          <h1 class="modal-title fs-5" id="divmodalRoomNumber">Modifica numero camera</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="mb-3">
+              <label for="mod-room-name" class="col-form-label">Numero Camera:</label>
+              <input name="mod-room-name" type="text" class="form-control" id="mod-room-name" required>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+          <button value="insert" name="save-room" type="submit" class="btn btn-primary">Salva</button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block script_body %}
+
+<script src="{{ url_for('static', filename='js/manage_room.js') }}"></script>
+
+{% endblock %}

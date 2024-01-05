@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="container-fluid mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 mt-md-5">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Aggiungi una nuova camera</h5>
+                    <p class="card-text">Inserisci una nuova camera specificando il tipo, il numero di ospiti, il prezzo e la descrizione</p>
+                    <a href="/manage-room/type" class="btn btn-primary" type=>Clicca qui per aggiungere</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 mt-md-5 mt-sm-5 mt-5">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Associa il numero della camera</h5>
+                    <p class="card-text">Associa il numero della camera a un tipo disponibile</p>
+                    <a href="/manage-room/number" class="btn btn-primary">Clicca qui per associare</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

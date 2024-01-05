@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+
+{% block link_style %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/css-contacts/animate.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/css-contacts/hamburgers.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/css-contacts/main-contacts.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/css-contacts/select2.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/css-contacts/util-contacts.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/css-contacts/contacts.css')}}">
+
+<style>
+    .gradient {
+        background: linear-gradient(135deg, #a6c4e0 0%, #4a7ca7 100%);
+
+    }
+</style>
+
+{% endblock %}
+
+{% block body %}
+
+<div class="container" style="margin-top: 5rem; margin-bottom: 5rem">
+    <div class="row justify-content-center">
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="wrapper">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <div class="gradient w-100 p-lg-5 p-4">
+                            <h3 class="mb-4">Inviaci un messaggio</h3>
+                            <div id="form-message-warning" class="mb-4"></div>
+                            <div id="form-message-success" class="mb-4">
+                            </div>
+                            <form method="POST" id="contactForm" name="contactForm" class="contactForm" novalidate="novalidate">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="name" id="name" placeholder="Nome">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Oggetto">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <textarea name="message" class="form-control" id="message" cols="30" rows="6" placeholder="Messaggio"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input type="submit" value="Invia" class="btn btn-primary">
+                                            <div class="submitting"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex align-items-stretch">
+                        <div class="info-wrap w-100 p-lg-4 p-4 img">
+                            <h3>Contattaci</h3>
+                            <p class="mb-4">Ti risponderemo subito</p>
+                            <div class="dbox w-100 d-flex align-items-start">
+                                <div class="icon d-flex align-items-center justify-content-center">
+                                    <span class="fa fa-map-marker"></span>
+                                </div>
+                                <div class="text pl-3">
+                                    <p><span>Indirizzo:</span> Centro Direzionale ISOLA C4, 80133 Napoli NA</p>
+                                </div>
+                            </div>
+                            <div class="dbox w-100 d-flex align-items-center">
+                                <div class="icon d-flex align-items-center justify-content-center">
+                                    <span class="fa fa-phone"></span>
+                                </div>
+                                <div class="text pl-3">
+                                    <p><span>Telefono:</span> <a href="tel://0815476660">  081 547 6660</a></p>
+                                </div>
+                            </div>
+                            <div class="dbox w-100 d-flex align-items-center">
+                                <div class="icon d-flex align-items-center justify-content-center">
+                                    <span class="fa fa-paper-plane"></span>
+                                </div>
+                                <div class="text pl-3">
+                                    <p><span>Email:</span> <a href="mailto:info@yoursite.com">info@yoursite.com</a></p>
+                                </div>
+                            </div>
+                            <div class="dbox w-100 d-flex align-items-center">
+                                <div class="icon d-flex align-items-center justify-content-center">
+                                    <span class="fa fa-globe"></span>
+                                </div>
+                                <div class="text pl-3">
+                                    <p><span>Website</span> <a href="https://uniparthenope.it">uniparthenope.it</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-md-4 d-flex align-items-stretch">
+                        <div class="info-wrap w-100 p-lg-4 p-4 img">
+                            <h3>Iscriviti alla newsletter</h3>
+                            <p class="mb-4">Inserisci la tua mail per iscriverti</p>
+                            <div class="input-group mb-3">
+                              <input type="email" class="form-control form-control-dark border-1 rounded-left" placeholder="Email" aria-label="Email" aria-describedby="button-addon2" style="border-color: #4a7ca7">
+                              <button class="btn btn-primary fa fa-arrow-right" type="submit" id="button-addon2"></button>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script_body %}
+
+<script src="{{url_for('static', filename='js/js-contacts/main.js')}}"></script>
+<script src="{{url_for('static', filename='js/js-contacts/select2.js')}}"></script>
+<script src="{{url_for('static', filename='js/js-contacts/tilt.jquery.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/js-bootstrap/popper.min.js')}}"></script>
+
+{% endblock %}

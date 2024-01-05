@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block link_style %}
+<style>
+.gradient-custom {
+/* fallback for old browsers */
+background: #65e8f6;
+
+/* Chrome 10-25, Safari 5.1-6 */
+background: -webkit-linear-gradient(to right bottom, rgba(28, 103, 184, 0.67), rgba(28, 103, 184, 0.67),);
+
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: linear-gradient(to right bottom,rgba(28, 103, 184, 0.67),rgba(28, 103, 184, 0.67),)
+}
+
+</style>
+{% endblock %}
+
+{% block body %}
+
+<div class="container d-flex align-items-center justify-content-center min-vh-100">
+    <div class="container">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-lg-6 mb-4 mb-lg-0">
+          <div class="card mb-3" style="border-radius: .5rem;">
+            <div class="row g-0">
+              <div class="col-md-3 gradient-custom text-center text-white" style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem; background: rgba(47, 103, 177, 0.5) !important;">
+                <a data-bs-toggle="modal" data-bs-target="#avatarModal">
+                  <img src="{{url_for('static', filename=path_avatar)}}" alt="Avatar" class="img-fluid my-5" style="width: 80px;">
+                </a>
+                <h5>{{staff[0]}} {{staff[1]}}</h5>
+
+              </div>
+              <div class="col-md-8">
+                <div class="card-body p-4">
+                  <h6>Profilo</h6>
+                  <hr class="mt-0 mb-4">
+                  <div class="row pt-1">
+                    <div class="col-6 mb-3">
+                      <h6>Nome</h6>
+                      <p class="text-muted">{{staff[0]}}</p>
+                    </div>
+                    <div class="col-6 mb-3">
+                      <h6>Cognome</h6>
+                      <p class="text-muted">{{staff[1]}}</p>
+                    </div>
+                  </div>
+                  <div class="row pt-1">
+                    <div class="col-6 mb-3">
+                      <h6>Email</h6>
+                      <p class="text-muted">{{staff[2]}}</p>
+                    </div>
+                    <div class="col-6 mb-3">
+                      <h6>Codice fiscale</h6>
+                      <p class="text-muted">{{staff[3]}}</p>
+                    </div>
+                  </div>
+                  <div class="row pt-1">
+                    <div class="col-6 mb-3">
+                      <h6>Telefono</h6>
+                      <p class="text-muted">{{staff[4]}}</p>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>Ruolo</h6>
+                        <p class="text-muted text-uppercase">{{staff[5]}}</p>
+                  </div>
+                  <div class="row pt-1">
+                    <div class="col-6 mb-3">
+                      <h6>Sesso</h6>
+                      <p class="text-muted text-uppercase">{{staff[6]}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<form action="{{url_for('profile.staff_profile')}}" method="post" enctype="multipart/form-data">
+  <!-- Modal -->
+  <div class="modal fade" id="avatarModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Modifica avatar</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="formFileSm" class="form-label">Carica avatar</label>
+            <input name="avatar" class="form-control form-control-sm" id="formFileSm" type="file">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Salva</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+{% endblock %}

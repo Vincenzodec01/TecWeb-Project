@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% block link_style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css-rooms/style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css-bootstrap/bootstrap.css') }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+<style>
+
+.card {
+  max-width: 30em;
+  flex-direction: row;
+  background-color: #696969;
+  border: 0;
+  box-shadow: 0 7px 7px rgba(0, 0, 0, 0.18);
+  margin: 3em auto;
+}
+.card.dark {
+  color: #fff;
+}
+.card.card.bg-light-subtle .card-title {
+  color: dimgrey;
+}
+
+.card img {
+  max-width: 25%;
+  margin: auto;
+  padding: 0.5em;
+  border-radius: 0.7em;
+}
+.card-body {
+  display: flex;
+  justify-content: space-between;
+}
+.text-section {
+  max-width: 60%;
+}
+.cta-section {
+  max-width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.cta-section .btn {
+  padding: 0.3em 0.5em;
+  /* color: #696969; */
+}
+.card.bg-light-subtle .cta-section .btn {
+  background-color: #898989;
+  border-color: #898989;
+}
+@media screen and (max-width: 475px) {
+  .card {
+    font-size: 0.9em;
+  }
+}
+
+</style>
+
+{% endblock %}
+
+{% block body %}
+
+
+ <div class="container mt-2 shadow-lg p-3 mb-5 rounded align-content-center" style="background-color: rgba(255, 255, 255, 0.1);">
+    <form action="{{url_for('home.search')}}" method="post">
+      <div class="row">
+        <div class="col-md-4 mt-1">
+          <input name="check_in" type="text" class="form-control datepicker" id="checkin" placeholder="Seleziona la data di check-in" required>
+        </div>
+        <div class="col-md-4 mt-1">
+          <input name="check_out" type="text" class="form-control datepicker" id="checkout" placeholder="Seleziona la data di check-out" required>
+        </div>
+        <div class="col-md-2 d-flex justify-content-center mt-1">
+          <select name="adults" class="form-select" id="people" required>
+            <option value="1">1 ospite</option>
+            <option value="2">2 ospiti</option>
+            <option value="3">3 ospiti</option>
+            <option value="4">4 ospiti</option>
+            <!-- Aggiungi più opzioni se necessario -->
+          </select>
+        </div>
+        <div class="col-md-2 d-flex justify-content-center mt-1 col-sm align-self-sm-center">
+          <button type="submit" class="btn btn-primary">Ricerca</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+{% if rooms %}
+{%for room in rooms%}
+<div class="card mt-4" style="background-color: rgba(28, 103, 184, 0.3) !important;">
+    <img src="{{ url_for('static', filename='img/img-room/id-' + room[0] + '/1.jpg')}}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <div class="text-section">
+        <h5 class="card-title" style="color: black; font-weight: bold"><a href="{{url_for('rooms.rooms_view', id_type=room[0])}}" style="color: black">{{room[1]}}</a></h5>
+        <p class="d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="22" fill="currentColor" class="bi bi-person-standing" viewBox="0 0 16 16">
+                      <path d="M8 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M6 6.75v8.5a.75.75 0 0 0 1.5 0V10.5a.5.5 0 0 1 1 0v4.75a.75.75 0 0 0 1.5 0v-8.5a.25.25 0 1 1 .5 0v2.5a.75.75 0 0 0 1.5 0V6.5a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v2.75a.75.75 0 0 0 1.5 0v-2.5a.25.25 0 0 1 .5 0"/>
+                    </svg>
+            {{adults}} &nbsp
+                      {% if room[2] %}
+                        <span style="color: green; font-weight: lighter !important;font-size: 1rem">Disponibile</span>
+                    {% else %}
+                        <span style="color: darkred; font-weight: lighter !important;font-size: 1rem">Esaurita</span>
+                    {% endif %}
+      </div>
+      <div class="cta-section">
+        <div>{% if room[4] %}
+
+                  <span style="color: red; margin-right: 1rem"><del>{{room[3]}}€</del></span>
+                  <span style="color: black; margin-right: 1rem">{{room[8]}}€</span>
+
+                {% else %}
+
+                  <span style="color: black; margin-right: 1rem">{{room[3]}}€</span>
+
+                {% endif %}</div>
+        {% if room[2] %}
+                <form action="{{url_for('payment.payment_view', id_room=room[0], check_in=check_in, check_out=check_out)}}" method="post">
+                    <button type="submit" class="btn btn-primary">Prenota</button>
+                </form>
+                {% else %}
+                <button type="button" class="btn btn-primary" disabled>Prenota</button>
+                {% endif %}
+      </div>
+    </div>
+  </div>
+{% endfor %}
+{% endif %}
+
+{% endblock %}
+
+
+{% block script_body %}
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+    // Initialize Flatpickr
+    flatpickr('.datepicker', {
+    altInput: true,
+    altFormat: "F j, Y",
+    dateFormat: "Y-m-d",
+});
+
+</script>
+{% endblock %}
+

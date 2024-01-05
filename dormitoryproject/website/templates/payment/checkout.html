@@ -1,0 +1,254 @@
+{% extends 'base.html' %}
+
+{% block link_style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css-rooms/style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css-bootstrap/bootstrap.css') }}">
+<style>
+   @import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap");
+
+
+.card{
+
+ border: none;
+}
+
+.card-header {
+     padding: .5rem 1rem;
+     margin-bottom: 0;
+     background-color: rgba(0,0,0,.03);
+     border-bottom: none;
+ }
+
+ .btn-light:focus {
+     color: #212529;
+     background-color: #e2e6ea;
+     border-color: #dae0e5;
+     box-shadow: 0 0 0 0.2rem rgba(216,217,219,.5);
+ }
+
+ .form-control{
+
+   height: 50px;
+border: 2px solid #eee;
+border-radius: 6px;
+font-size: 14px;
+ }
+
+ .form-control:focus {
+color: #495057;
+background-color: #fff;
+border-color: #039be5;
+outline: 0;
+box-shadow: none;
+
+}
+
+.input{
+
+position: relative;
+}
+
+.input i{
+
+   position: absolute;
+top: 16px;
+left: 11px;
+color: #989898;
+}
+
+.input input{
+
+text-indent: 25px;
+}
+
+.card-text{
+
+font-size: 13px;
+margin-left: 6px;
+}
+
+.certificate-text{
+
+font-size: 12px;
+}
+
+
+.billing{
+font-size: 11px;
+}
+
+.super-price{
+
+   top: 0px;
+font-size: 22px;
+}
+
+.super-month{
+
+   font-size: 11px;
+}
+
+
+.line{
+color: #bfbdbd;
+}
+
+.free-button{
+
+   background: #1565c0;
+height: 52px;
+font-size: 15px;
+border-radius: 8px;
+}
+
+
+.payment-card-body{
+
+flex: 1 1 auto;
+padding: 24px 1rem !important;
+
+}
+</style>
+{% endblock %}
+
+{% block body %}
+<form method="post" action="{{url_for('payment.payment_view', id_room=id_room, check_in=check_in, check_out=check_out)}}">
+<div class="container-fluid d-flex justify-content-center mt-5 mb-5">
+
+    <div class="row g-3">
+
+        <div class="col-md-7 order-md-1 order-2">
+
+        <div class="d-flex justify-content-center">
+            <span class="font-weight-bold">Metodo di pagamento</span>
+        </div>
+
+
+
+            <div class="accordion mt-3" id="accordionExample">
+
+                <div class="card">
+                    <div class="card-header p-0" id="headingTwo">
+                        <h2 class="mb-0">
+                            <button style="background-color: rgba(28, 103, 184, 0.67); !important;" class="btn btn-primary btn-block text-left collapsed p-3 rounded-0 border-bottom-custom" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span>Paypal</span>
+                                    <img src="{{url_for('static', filename='img/pay/paypal.png')}}" width="30" alt="">
+                                </div>
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <input type="text" class="form-control" placeholder="Paypal email">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header p-0">
+                        <div class="mb-0">
+                            <button class="btn btn-light btn-block text-left p-3 rounded-0" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span>Credit card</span>
+                                    <div class="icons">
+                                        <img src="{{url_for('static', filename='img/pay/master.png')}}" width="30">
+                                        <img src="{{url_for('static', filename='img/pay/visa.png')}}" width="30">
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div class="card-body payment-card-body">
+                            <span class="font-weight-normal card-text">Card Number</span>
+                            <div class="input">
+                                <i class="fa fa-credit-card"></i>
+                                <input type="text" class="form-control" placeholder="0000 0000 0000 0000">
+                            </div>
+
+                            <div class="row mt-3 mb-3">
+                                <div class="col-md-6">
+                                    <span class="font-weight-normal card-text">Expiry Date</span>
+                                    <div class="input">
+                                        <i class="fa fa-calendar"></i>
+                                        <input type="text" class="form-control" placeholder="MM/YY">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <span class="font-weight-normal card-text">CVC/CVV</span>
+                                    <div class="input">
+                                        <i class="fa fa-lock"></i>
+                                        <input type="text" class="form-control" placeholder="000">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <span class="text-muted certificate-text"><i class="fa fa-lock"></i> Your transaction is secured with SSL certificate</span>
+                            <select class="form-select form-select-sm mt-1" aria-label=".form-select-sm example">
+                              <option selected>Seleziona il tuo metodo di pagamento memorizzato</option>
+                                {% for card in cards %}
+                              <option value="{{card[0]}}">{{card[0]}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    <div class="col-md-5 order-md-6 order-2">
+        <div class="d-flex justify-content-center">
+            <span class="font-weight-bold">Riepilogo</span>
+        </div>
+
+
+        <div class="card mt-3">
+
+            <div class="d-flex justify-content-between p-3">
+
+                <div class="d-flex flex-column">
+                    <span>Camera {{name_room}}</span>
+                </div>
+
+                <div class="mt-1">
+                    <sup style="font-size: medium">{{price}}€</sup>
+                </div>
+
+            </div>
+
+            <hr class="mt-0 line">
+
+            <!-- Additional summary items can be added here -->
+            <div class="d-flex justify-content-between p-3">
+
+                <div class="d-flex flex-column">
+                    <span>Totale</span>
+                </div>
+
+                <div class="mt-1">
+                    <sup class="super-price">{{price}}€</sup>
+                </div>
+
+            </div>
+
+            <hr class="mt-0 line">
+
+            <div class="p-3">
+                <button value="pay" name="pay" type="submit" class="btn btn-primary btn-block">Effettua pagamento</button>
+            </div>
+
+        </div>
+
+    </div>
+    </div>
+
+</div>
+</form>
+
+
+{% endblock %}

@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+<div class="container mt-4 table-responsive">
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Promozione</th>
+        <th scope="col">Data inizio</th>
+        <th scope="col">Data scadenza</th>
+        <th scope="col">Sconto</th>
+        <th scope="col">Camera</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+    {% for promotion in promotions%}
+      <tr>
+        <th scope="row">{{promotion[0]}}</th>
+        <td>{{promotion[1]}}</td>
+        <td>{{promotion[2]}}</td>
+        <td>{{promotion[3]}}</td>
+        <td>{{promotion[4]}}</td>
+        <td>{{promotion[5]}}</td>
+        <td class="d-flex justify-content-center">
+          <a class="me-2 text-black" id="modPromotion" data-id="{{promotion[0]}}" type="button" data-bs-toggle="modal" data-bs-target="#_modalRoom_">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+              <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+              <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+            </svg>
+          </a>
+          <form name="deletePromotionForm" id="deletePromotionForm" action="{{ url_for('management.manage_promotion')}}" method="post">
+            <a id="deletePromotion" href="#" onclick="submit_delete()">
+              <input hidden name="deletePromotion" value="{{promotion[0]}}">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+              </svg>
+            </a>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+    <div class="d-flex justify-content-end">
+      <a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Aggiungi</a>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="_modalRoom_" tabindex="-1" aria-labelledby="modalRoom" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+
+    <form method="post" action="{{ url_for('management.manage_promotion')}}" class="needs-validation" novalidate="" autocomplete="off" enctype="multipart/form-data">
+      <input id="mod-id-promotion" hidden name="mod-id-promotion" required>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="modalRoom">Modifica promozione</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="mb-3">
+              <label for="mod-promotion-name" class="col-form-label">Nome promozione:</label>
+              <input name="mod-promotion-name" type="text" class="form-control" id="mod-promotion-name" required>
+            </div>
+            <div class="mb-3">
+              <label for="mod-promotion-start" class="form-label">Data inizio</label>
+              <input id="mod-promotion-start" name="promotion-start" class="form-control" type="date" required>
+            </div>
+            <div class="mb-3">
+              <label for="mod-promotion-end" class="form-label">Data fine</label>
+              <input id="mod-promotion-end" name="promotion-end" class="form-control" type="date" required>
+            </div>
+            <label for="mod-promotion-discount" class="col-form-label">Sconto:</label>
+            <div class="input-group mb-3">
+              <span class="input-group-text">%</span>
+              <input id="mod-promotion-discount" name="mod-promotion-discount" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+            </div>
+            <div id="mod-room-container" class="input-group mb-3 w-50">
+              <input id="mod-promotion-room" name="mod-promotion-room" type="text" class="form-control h-25" aria-label="Amount (to the nearest dollar)">
+              <a href="#" onclick="add_name('mod-list-room', 'mod-')" class="d-fle mt-1 ms-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
+                </svg>
+              </a>
+            </div>
+
+            <ul id="mod-list-room" class="list-group">
+
+            </ul>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+          <button value="modify" name="submitPromotion" type="button" class="btn btn-primary" onclick="save_promotion('mod-')">Salva</button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+
+    <form method="post" action="{{ url_for('management.manage_promotion')}}" class="needs-validation" novalidate="" autocomplete="off" enctype="multipart/form-data">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Inserimento promozione</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="mb-3">
+              <label for="promotion-name" class="col-form-label">Nome promozione:</label>
+              <input name="promotion-name" type="text" class="form-control" id="promotion-name" required>
+            </div>
+            <div class="mb-3">
+              <label for="promotion-start" class="form-label">Data inizio</label>
+              <input id="promotion-start" name="promotion-start" class="form-control" type="date" required>
+            </div>
+            <div class="mb-3">
+              <label for="promotion-end" class="form-label">Data fine</label>
+              <input id="promotion-end" name="promotion-end" class="form-control" type="date" required>
+            </div>
+            <label for="promotion-discount" class="col-form-label">Sconto:</label>
+            <div class="input-group mb-3">
+              <span class="input-group-text">%</span>
+              <input id="promotion-discount" name="promotion-discount" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+            </div>
+            <div id="room-container" class="input-group mb-3 w-50">
+              <input id="promotion-room" name="promotion-discount" type="text" class="form-control h-25" aria-label="Amount (to the nearest dollar)">
+              <a href="#" onclick="add_name('list-room', '')" class="d-fle mt-1 ms-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
+                </svg>
+              </a>
+            </div>
+
+            <ul id="list-room" class="list-group">
+
+            </ul>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+          <button value="insert" name="submitPromotion" type="button" class="btn btn-primary" onclick="save_promotion('')">Salva</button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block script_body %}
+
+<script src="{{ url_for('static', filename='js/manage_promotion.js') }}"></script>
+
+{% endblock %}

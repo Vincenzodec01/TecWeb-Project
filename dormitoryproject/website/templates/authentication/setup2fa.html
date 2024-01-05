@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="mt-5" style="background-color: white; max-width: 600px; margin: 20px auto; padding: 20px; border-radius: 10px;">
+  <div class="row">
+    <div class="col-md-12">
+      <main class="form-signin w-100 m-auto">
+        <form>
+          <h5>Istruzioni!</h5>
+          <ul>
+            <li>Scarica <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en&gl=US" target="_blank">Google Authenticator</a> sul tuo smartphone.</li>
+            <li>Configura un nuovo autenticatore.</li>
+            <li>Una volta che hai scannerizzato il codice QR, fai clic <a href="{{ url_for('auth.verify2fa', fiscal_code=fiscal_code, remember=remember) }}">qui.</a></li>
+          </ul>
+          <div class="text-center">
+            <img src="data:image/png;base64, {{ qr_image }}" alt="Secret Token" style="width:200px;height:200px"/>
+          </div>
+          <div class="form-group">
+            <label for="secret">Secret Token</label>
+            <input type="text" class="form-control" id="secret" value="{{ secret }}" readonly>
+          </div>
+          <div class="text-center mt-2">
+            <button type="button" class="btn btn-primary" onclick="copySecret()">
+              Copia la chiave
+            </button>
+          </div>
+          <p class="mt-4 text-center">
+            Una volta che hai scannerizzato il codice QR, fai clic <a href="{{ url_for('auth.verify2fa', fiscal_code=fiscal_code, remember=remember) }}">qui</a>.
+          </p>
+        </form>
+      </main>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block script_body %}
+<script>
+    function copySecret() {
+    var copyText = document.getElementById("secret");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+    document.execCommand("copy");
+    alert("Successfully copied TOTP secret token!");
+  }
+</script>
+{% endblock %}

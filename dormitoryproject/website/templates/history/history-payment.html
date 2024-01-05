@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{%block link_style%}
+<style>
+ .flex {
+     -webkit-box-flex: 1;
+     -ms-flex: 1 1 auto;
+     flex: 1 1 auto
+ }
+
+ @media (max-width:991.98px) {
+     .padding {
+         padding: 1.5rem
+     }
+ }
+
+ @media (max-width:767.98px) {
+     .padding {
+         padding: 1rem
+     }
+ }
+
+ .padding {
+     padding: 5rem
+ }
+
+ .card {
+     box-shadow: none;
+     -webkit-box-shadow: none;
+     -moz-box-shadow: none;
+     -ms-box-shadow: none
+ }
+
+ .pl-3,
+ .px-3 {
+     padding-left: 1rem !important
+ }
+
+ .card {
+     position: relative;
+     display: flex;
+     flex-direction: column;
+     min-width: 0;
+     word-wrap: break-word;
+     background-color: #fff;
+     background-clip: border-box;
+     border: 1px solid #d2d2dc;
+     border-radius: 0
+ }
+
+ .card .card-title {
+    color: #000000;
+    margin-bottom: 0.625rem;
+    text-transform: capitalize;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.card .card-description {
+    margin-bottom: .875rem;
+    font-weight: 400;
+    color: #76838f;
+}
+
+p {
+    font-size: 0.875rem;
+    margin-bottom: .5rem;
+    line-height: 1.5rem;
+}
+
+
+
+
+  .table-bg {
+  --bs-table-color: #000;
+  --bs-table-bg: rgba(28, 103, 184, 0.67);
+  --bs-table-border-color: #a6b5cc;
+  --bs-table-striped-bg: #c5d7f2;
+  --bs-table-striped-color: #000;
+  --bs-table-active-bg: #bacbe6;
+  --bs-table-active-color: #000;
+  --bs-table-hover-bg: #bfd1ec;
+  --bs-table-hover-color: #000;
+  color: var(--bs-table-color);
+  border-color: var(--bs-table-border-color);
+}
+
+</style>
+{% endblock %}
+
+{% block body %}
+
+
+<div class="page-content page-container" id="page-content">
+    <div class="padding">
+        <div class="row container-fluid d-flex justify-content-center">
+
+            <div class="grid-margin stretch-card col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Elenco Pagamenti</h4>
+                        <p class="card-description">
+                            Visualizza tutti i pagamenti
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table table-striped mb-0 text-center">
+                                <thead class="table-bg border">
+                                    <tr>
+                                        <th scope="col">#Fattura</th>
+                                        <th scope="col">Data pagamento</th>
+                                        <th scope="col">Totale</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for payment in payments %}
+                                    <tr>
+                                        <th scope="row">{{ payment[0] }}</th>
+                                        <td>{{ payment[1] }}</td>
+                                        <td>{{ payment[2] }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

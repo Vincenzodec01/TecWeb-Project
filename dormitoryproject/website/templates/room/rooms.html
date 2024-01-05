@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Camere UniParthenope
+{% endblock %}
+
+
+{% block link_style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css-rooms/style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css-bootstrap/bootstrap.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,600,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css-rooms/open-iconic-bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css-rooms/animate.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css-rooms/owl.carousel.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css-rooms/owl.theme.default.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css-rooms/magnific-popup.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css-rooms/aos.css') }}">
+<link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css-rooms/bootstrap-datepicker.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css-rooms/jquery.timepicker.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css-rooms/flaticon.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/css-rooms/icomoon.css') }}">
+{% endblock %}
+
+
+{% block body %}
+  
+
+
+				{% if room %}
+<section class="ftco-section ftco-no-pb ftco-room">
+    	<div class="container-fluid px-0">
+
+    		<div class="row no-gutters">
+                {% for _room_ in room%}
+
+					<div class="col-lg-6">
+						<div class="room-wrap d-md-flex ftco-animate">
+							<a href="#" class="img" style="background-image: url({{ url_for('static', filename='img/img-room/id-' + _room_[0] + '/1.jpg')}});"></a>
+							<div class="half left-arrow d-flex align-items-center">
+								<div class="text p-4 text-center">
+									<p class="mb-0"><span class="price mr-1">{{_room_[2]}}€</span> <span class="per">per notte</span></p>
+									<h3 class="mb-3"><a href="/rooms">{{_room_[1]}}</a></h3>
+									<form method="post" action="{{ url_for('rooms.rooms_list')}}">
+										<button value="{{_room_[0]}}" type="submit" class="btn btn-primary ms-auto" name="sub_button">
+										Visualizza
+										</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+                {% endfor %}
+    		</div>
+    	</div>
+</section>
+                {% endif %}
+
+
+{% endblock %}
+
+
+{% block script_body %}
+
+	<script src="{{ url_for('static', filename='js/js-rooms/jquery-migrate-3.0.1.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/js-rooms/jquery.easing.1.3.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/js-rooms/jquery.waypoints.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/js-rooms/jquery.stellar.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/js-rooms/owl.carousel.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/js-rooms/jquery.magnific-popup.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/js-rooms/aos.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/js-rooms/jquery.animateNumber.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/js-rooms/bootstrap-datepicker.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/js-rooms/scrollax.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/js-rooms/google-map.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+{% endblock %}
+

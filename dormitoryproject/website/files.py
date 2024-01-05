@@ -1,8 +1,5 @@
 import os
 
-
-import os
-
 def upload_file(file_list, path, _id=None, file_counter=1):
     """
     Uploads files to the specified path with an optional subdirectory based on the provided ID.

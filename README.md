@@ -12,7 +12,7 @@ For further information and to apply, please [visit our website](http://dormitor
 
 ## Presentation
 
-You can also view a presentation of Dormitory Uniparthenope by [clicking here](final_presentation.pdf).
+You can also view a presentation of Dormitory Uniparthenope by [clicking here](final_ presentation.pdf).
 
 ## Authors
 

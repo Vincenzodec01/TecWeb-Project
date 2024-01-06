@@ -17,8 +17,8 @@ You can also view a presentation of Dormitory Uniparthenope by [clicking here](h
 ## Authors
 
 - Vincenzo De Candia ([@Vincenzodec01](https://github.com/Vincenzodec01))
-- Davide Aiello ([@](#))
-- Vincenzo Franchetti ([@](#))
+- Davide Aiello ([@DAiello02](https://github.com/DAiello02))
+- Vincenzo Franchetti ([@V-Zero0](https://github.com/V-Zero0))
 
 ## License
 

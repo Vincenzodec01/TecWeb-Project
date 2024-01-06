@@ -161,8 +161,8 @@ def login():
                         user_id = UserDB.query('SELECT id_user FROM user WHERE fiscal_code=%s', [fiscal_code])[0][0]
                         set_session(user_id, role, remember)
                         user_id = str(user_id)
-                        if not os.path.exists('website/static/img/avatar/id-' + user_id):
-                            os.mkdir('website/static/img/avatar/id-' + user_id)
+                        
+                        os.mkdir('website/static/img/avatar/id-' + user_id)
                         shutil.copy('website/static/img/avatar/default.webp',
                                     'website/static/img/avatar/id-' + user_id + '/default.webp')
                         UserDB.query('INSERT INTO avatar_user (id_avatar, name_avatar, id_user) VALUES (0, %s, %s)',

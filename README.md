@@ -12,11 +12,11 @@ For further information and to apply, please [visit our website](http://dormitor
 
 ## Presentation
 
-You can also view a presentation of Dormitory Uniparthenope by [clicking here](https://github.com/Vincenzodec01/TecWeb-Project/blob/main/final_%20presentation.pdf).
+You can also view a presentation of Dormitory Uniparthenope by [clicking here](final_presentation.pdf).
 
 ## Authors
 
-- Vincenzo De Candia ([@](#))
+- Vincenzo De Candia ([@Vincenzodec01](https://github.com/Vincenzodec01))
 - Davide Aiello ([@](#))
 - Vincenzo Franchetti ([@](#))
 

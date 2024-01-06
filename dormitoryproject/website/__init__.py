@@ -51,7 +51,7 @@ def create_app():
     def page_not_found(e):
         return render_template('error/error404.html', val_session=get_session(), role=get_role()), 404
 
-    """  
+      
     @app.errorhandler(500)
     def internal_server_error(e):
         return render_template('error/error500.html', val_session=get_session(), role=get_role())
@@ -65,7 +65,7 @@ def create_app():
         # now you're handling non-HTTP exceptions only
         return render_template("error/error500.html", e=e), 500
 
-    """
+    
     # Import and register blueprints for different components of the application
     from .home import home
     from .auth import auth
